@@ -33,6 +33,9 @@ public class CustomerUsersDetailsService implements UserDetailsService {
     }
 
     public lk.ctech.cafe_management_system_backend.POJO.User getUserDetail() {
+/*        lk.ctech.cafe_management_system_backend.POJO.User user = userDetail;
+        user.setPassword(null);
+        return user;*/ /* For not exposing password */
         return userDetail;
     }
 }
