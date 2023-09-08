@@ -23,6 +23,7 @@ public class CustomerUsersDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println(username);
         log.info("Inside loadUserByUsername {}", username);
         userDetail = userDao.findByEmailId(username);
         if (!Objects.isNull(userDetail)) {

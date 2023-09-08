@@ -9,10 +9,12 @@ import java.util.List;
 
 @Service
 public class EmailUtils {
+
     @Autowired
     private JavaMailSender emailSender;
 
     public void sendSimpleMessage(String to, String subject, String text, List<String> list) {
+        System.out.println(to);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("ctechdeveloping@gmail.com");
         message.setTo(to);

@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
                 Optional<User> optional = userDao.findById(Integer.parseInt(requestMap.get("id")));
                 if (!optional.isEmpty()) {
                     userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
-                    sendMailToAllAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
+//                    sendMailToAllAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
                     return CafeUtils.getResponseEntity("User status updated successfully", HttpStatus.OK);
                 }else {
                     return CafeUtils.getResponseEntity("User id does not exist", HttpStatus.OK);
@@ -150,5 +150,10 @@ public class UserServiceImpl implements UserService {
         }else {
             emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account Disabled", "User :- " + user + "\n is disabled by \nADMIN :- " + jwtFilter.getCurrentUser(), allAdmin);
         }
+    }
+
+    @Override
+    public ResponseEntity<String> checkToken() {
+        return CafeUtils.getResponseEntity("true", HttpStatus.OK);
     }
 }
