@@ -1,18 +1,23 @@
 package lk.ctech.cafe_management_system_backend.serviceImpl;
 
+import com.google.common.base.Strings;
 import lk.ctech.cafe_management_system_backend.JWT.JwtFilter;
 import lk.ctech.cafe_management_system_backend.POJO.Category;
 import lk.ctech.cafe_management_system_backend.constents.CafeConstants;
 import lk.ctech.cafe_management_system_backend.dao.CategoryDao;
 import lk.ctech.cafe_management_system_backend.service.CategoryService;
 import lk.ctech.cafe_management_system_backend.utils.CafeUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -57,5 +62,19 @@ public class CategoryServiceImpl implements CategoryService {
         }
         category.setName(requestMap.get("name"));
         return category;
+    }
+
+    @Override
+    public ResponseEntity<List<Category>> getAllCategory(String filterValue) {
+        try{
+            if (!Strings.isNullOrEmpty(filterValue) && filterValue.equalsIgnoreCase("true")) {
+                log.info("Inside if");
+                return new ResponseEntity<List<Category>>(categoryDao.getAllCategory(), HttpStatus.OK);
+            }
+            return new ResponseEntity<>(categoryDao.findAll(), HttpStatus.OK);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<List<Category>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
