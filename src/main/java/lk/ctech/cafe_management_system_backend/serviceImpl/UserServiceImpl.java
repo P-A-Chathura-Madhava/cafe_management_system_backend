@@ -1,5 +1,6 @@
 package lk.ctech.cafe_management_system_backend.serviceImpl;
 
+import com.google.common.base.Strings;
 import lk.ctech.cafe_management_system_backend.JWT.CustomerUsersDetailsService;
 import lk.ctech.cafe_management_system_backend.JWT.JwtFilter;
 import lk.ctech.cafe_management_system_backend.JWT.JwtUtil;
@@ -170,6 +171,22 @@ public class UserServiceImpl implements UserService {
                 return CafeUtils.getResponseEntity("Incorrect Old Password", HttpStatus.BAD_REQUEST);
             }
             return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
+        try {
+            User user = userDao.findByEmail(requestMap.get("email"));
+            if (!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail())){
+//                emailUtils.forgotMail(user.getEmail(), "Credentials by Cafe Management System", user.getPassword());
+                String msg = "Username :- " + user.getEmail() + "\nPassword :- " + user.getPassword();
+                return new ResponseEntity<String>(msg, HttpStatus.OK);
+            }
+            return CafeUtils.getResponseEntity("Check your mail for credentials", HttpStatus.OK);
         }catch (Exception ex) {
             ex.printStackTrace();
         }
