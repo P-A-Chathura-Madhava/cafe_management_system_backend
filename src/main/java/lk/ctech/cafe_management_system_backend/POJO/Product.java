@@ -7,6 +7,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@NamedQuery(name = "Product.getAllProduct", query = "select new lk.ctech.cafe_management_system_backend.wrapper.ProductWrapper(p.id, p.name, p.description, p.price, p.status, p.category.id, p.category.name) from Product p")
+
 @Data
 @Entity
 @DynamicInsert
