@@ -7,7 +7,7 @@
     <img src="https://www.logodesign.net/images/tutorials/restaurent-logos/restaurant-logo-designer-needs.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Resturant Management Application Backend API</h3>
+  <h3 align="center">Restaurant Management Application Backend API</h3>
 </div>
 
 <!-- TABLE OF CONTENTS -->
